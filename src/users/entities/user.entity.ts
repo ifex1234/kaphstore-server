@@ -19,6 +19,13 @@ export class UsersEntity implements User {
 
   @ApiProperty()
   lastName: string;
+
+  @ApiProperty()
+  phoneNo: string;
+
+  @ApiProperty()
+  address: string;
+
   @Exclude()
   password: string;
 }

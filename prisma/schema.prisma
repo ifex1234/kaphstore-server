@@ -8,6 +8,7 @@ generator client {
 
 model Order {
     id Int @id @default(autoincrement())
+    orderId Int @unique
     productName String
     price Int
     imageUrl String
@@ -15,16 +16,7 @@ model Order {
     createdAt DateTime @default(now())
     user User @relation(fields: [userID], references: [id])
     userID Int 
-
-}
-model Cart {
-    id Int @id @default(autoincrement())
-    productName String
-    price Int
-    imageUrl String
-    quantity Int
-    user User? @relation(fields: [userID], references: [id])
-    userID Int? 
+    sum Float 
 }
 model Product {
     id Int @id @default(autoincrement())
@@ -34,13 +26,13 @@ model Product {
     previousPrice Int
     currentPrice Int
     category category
-    quantity Int @default(1)
+    quantity Int @default(1) 
 
 }
 enum category {
     mobile_tablet
     appliances
-    computers
+    computers 
     groceries
     electronics
     fashion
@@ -51,9 +43,10 @@ model User {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   email     String   @unique
-  firstName      String?
-  lastName      String?
+  firstName      String
+  lastName      String
   password String
-  carts Cart[]
+  phoneNo String
+  address String
   orders Order[]
 }

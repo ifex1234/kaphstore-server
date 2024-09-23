@@ -19,6 +19,6 @@ export class ProductEntity implements Product {
   productUrl: string;
   @ApiProperty()
   title: string;
-  @ApiProperty({ required: false, default: 1 })
+  @ApiProperty()
   quantity: number;
 }

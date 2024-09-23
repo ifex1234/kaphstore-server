@@ -2,72 +2,70 @@
 import {
   Controller,
   Get,
-  Body,
-  Patch,
   Param,
-  Delete,
   HttpStatus,
   Res,
-  ParseIntPipe,
+  //ParseIntPipe,
   NotFoundException,
-  Header,
   HttpCode,
-  Post,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
-import { UpdateProductDto } from './dto/update-product.dto';
-import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { ProductEntity } from './entities/product.entity';
 import { Response } from 'express';
-import { CreateProductDto } from './dto/create-product.dto';
+import { category } from '@prisma/client';
 
-@Controller('api/products')
+@Controller('products')
 @ApiTags('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
-  @Post()
-  @HttpCode(201)
-  @Header('Cache-Control', 'none')
-  @ApiCreatedResponse({ type: ProductEntity })
-  create(
-    @Body() createProductDto: CreateProductDto,
-    @Res({ passthrough: true }) res: Response,
-  ) {
-    res.status(HttpStatus.CREATED).send();
-    return this.productsService.create(createProductDto);
-  }
-
-  @Get()
+  @Get('all-products/:id')
   @ApiOkResponse({ type: ProductEntity, isArray: true })
   @HttpCode(200)
-  findAll(@Res({ passthrough: true }) res: Response) {
+  findAll(
+    @Param('id') category: category,
+    @Res({ passthrough: true }) res: Response,
+  ) {
     res.status(HttpStatus.OK);
-    return this.productsService.findAll();
+    return this.productsService.findAllByCategory(category);
   }
 
   @Get(':id')
   @ApiOkResponse({ type: ProductEntity })
-  findOne(@Param('id', ParseIntPipe) id: number) {
-    const data = this.productsService.findOne(id);
+  findOne(@Param('id') productUrl: string) {
+    const data = this.productsService.findOne(productUrl);
     if (!data) {
-      throw new NotFoundException(`Product with ${id} does not exist.`);
+      throw new NotFoundException(`Product with ${productUrl} does not exist.`);
     }
     return data;
   }
+  //Not needed
 
-  @Patch(':id')
-  @ApiOkResponse({ type: ProductEntity })
-  update(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() updateProductDto: UpdateProductDto,
-  ) {
-    return this.productsService.update(id, updateProductDto);
-  }
+  // @Post()
+  // @HttpCode(201)
+  // @Header('Cache-Control', 'none')
+  // @ApiCreatedResponse({ type: ProductEntity })
+  // create(
+  //   @Body() createProductDto: CreateProductDto,
+  //   // @Res({ passthrough: true }) res: Response,
+  // ) {
+  //   // res.status(HttpStatus.CREATED).send();
+  //   return this.productsService.create(createProductDto);
+  // }
 
-  @Delete(':id')
-  @ApiOkResponse({ type: ProductEntity })
-  remove(@Param('id', ParseIntPipe) id: number) {
-    return this.productsService.remove(id);
-  }
+  // @Patch(':id')
+  // @ApiOkResponse({ type: ProductEntity })
+  // update(
+  //   @Param('id', ParseIntPipe) id: number,
+  //   @Body() updateProductDto: UpdateProductDto,
+  // ) {
+  //   return this.productsService.update(id, updateProductDto);
+  // }
+
+  // @Delete(':id')
+  // @ApiOkResponse({ type: ProductEntity })
+  // remove(@Param('id', ParseIntPipe) id: number) {
+  //   return this.productsService.remove(id);
+  // }
 }

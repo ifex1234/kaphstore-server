@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -11,6 +11,14 @@ export class UsersService {
   constructor(private prisma: PrismaService) {}
 
   async create(createUserDto: CreateUserDto) {
+    const user = await this.prisma.user.findUnique({
+      where: { email: createUserDto.email },
+    });
+    if (user) {
+      throw new ConflictException(
+        `user with email ${createUserDto.email} already exist`,
+      );
+    }
     const hashedPassword = await bcrypt.hash(
       createUserDto.password,
       roundsOfHashing,
@@ -18,10 +26,6 @@ export class UsersService {
 
     createUserDto.password = hashedPassword;
     return this.prisma.user.create({ data: createUserDto });
-  }
-
-  findAll() {
-    return this.prisma.user.findMany();
   }
 
   findOne(id: number) {
@@ -37,8 +41,7 @@ export class UsersService {
     }
     return this.prisma.user.update({ where: { id }, data: updateUserDto });
   }
-
-  remove(id: number) {
-    return this.prisma.user.delete({ where: { id } });
+  async findByEmail(email: string) {
+    return await this.prisma.user.findUnique({ where: { email: email } });
   }
 }
