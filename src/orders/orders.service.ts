@@ -15,6 +15,6 @@ export class OrdersService {
   }
 
   async findOne(id: number) {
-    return await this.prima.order.findFirst({ where: { orderId: id } });
+    return await this.prima.order.findFirst({ where: { id: id } });
   }
 }

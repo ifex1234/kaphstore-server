@@ -8,14 +8,10 @@ generator client {
 
 model Order {
     id Int @id @default(autoincrement())
-    orderId Int @unique
-    productName String
-    price Int
-    imageUrl String
-    quantity Int
     createdAt DateTime @default(now())
     user User @relation(fields: [userID], references: [id])
     userID Int 
+    orderId Int 
     sum Float 
 }
 model Product {
