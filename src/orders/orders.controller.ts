@@ -22,7 +22,7 @@ export class OrdersController {
   @ApiOkResponse({ type: OrderEntity, isArray: true })
   @HttpCode(200)
   @Get('/all-orders/:id')
-  findAll(@Body() id: number) {
+  findAll(@Body() id: string) {
     return this.ordersService.findAll(id);
   }
 }

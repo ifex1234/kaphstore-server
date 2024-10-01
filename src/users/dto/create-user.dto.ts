@@ -28,4 +28,9 @@ export class CreateUserDto {
   phoneNo: string;
   @ApiProperty()
   address: string;
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(4)
+  @ApiProperty()
+  userId: string;
 }

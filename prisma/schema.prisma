@@ -9,9 +9,8 @@ generator client {
 model Order {
     id Int @id @default(autoincrement())
     createdAt DateTime @default(now())
-    user User @relation(fields: [userID], references: [id])
-    userID Int 
-    orderId Int 
+    userId String
+    orderId Int @unique
     sum Float 
 }
 model Product {
@@ -38,11 +37,11 @@ enum category {
 model User {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
-  email     String   @unique
-  firstName      String
-  lastName      String
+  email     String?   @unique
+  firstName      String?
+  lastName      String?
   password String
   phoneNo String
   address String
-  orders Order[]
+  userId String
 }

@@ -25,6 +25,8 @@ export class UsersEntity implements User {
 
   @ApiProperty()
   address: string;
+  @ApiProperty()
+  userId: string;
 
   @Exclude()
   password: string;

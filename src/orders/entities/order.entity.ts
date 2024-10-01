@@ -12,7 +12,7 @@ export class OrderEntity implements Order {
 
   @IsNotEmpty()
   @ApiProperty()
-  userID: number;
+  userId: string;
 
   @IsNotEmpty()
   @ApiProperty()

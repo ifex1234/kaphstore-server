@@ -10,8 +10,8 @@ export class OrdersService {
     return await this.prima.order.createMany({ data: createOrderDto });
   }
 
-  async findAll(id: number) {
-    return await this.prima.order.findMany({ where: { userID: id } });
+  async findAll(id: string) {
+    return await this.prima.order.findMany({ where: { userId: id } });
   }
 
   async findOne(id: number) {

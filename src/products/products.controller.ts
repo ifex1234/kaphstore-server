@@ -5,7 +5,6 @@ import {
   Param,
   HttpStatus,
   Res,
-  //ParseIntPipe,
   NotFoundException,
   HttpCode,
 } from '@nestjs/common';
@@ -40,32 +39,4 @@ export class ProductsController {
     }
     return data;
   }
-  //Not needed
-
-  // @Post()
-  // @HttpCode(201)
-  // @Header('Cache-Control', 'none')
-  // @ApiCreatedResponse({ type: ProductEntity })
-  // create(
-  //   @Body() createProductDto: CreateProductDto,
-  //   // @Res({ passthrough: true }) res: Response,
-  // ) {
-  //   // res.status(HttpStatus.CREATED).send();
-  //   return this.productsService.create(createProductDto);
-  // }
-
-  // @Patch(':id')
-  // @ApiOkResponse({ type: ProductEntity })
-  // update(
-  //   @Param('id', ParseIntPipe) id: number,
-  //   @Body() updateProductDto: UpdateProductDto,
-  // ) {
-  //   return this.productsService.update(id, updateProductDto);
-  // }
-
-  // @Delete(':id')
-  // @ApiOkResponse({ type: ProductEntity })
-  // remove(@Param('id', ParseIntPipe) id: number) {
-  //   return this.productsService.remove(id);
-  // }
 }
