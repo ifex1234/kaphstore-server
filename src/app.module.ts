@@ -11,7 +11,6 @@ import { ProductsController } from './products/products.controller';
 import { ProductsService } from './products/products.service';
 import { UsersController } from './users/users.controller';
 import { UsersService } from './users/users.service';
-import { AuthenticationModule } from './authentication/authentication.module';
 import { PrismaService } from './prisma/prisma.service';
 import { OrdersController } from './orders/orders.controller';
 import { OrdersService } from './orders/orders.service';
@@ -23,7 +22,7 @@ import { OrdersService } from './orders/orders.service';
     ProductsModule,
     UsersModule,
     OrdersModule,
-    AuthenticationModule,
+    // AuthenticationModule,
   ],
   controllers: [
     AppController,

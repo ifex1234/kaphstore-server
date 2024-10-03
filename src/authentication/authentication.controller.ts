@@ -6,9 +6,7 @@ import {
   HttpCode,
   HttpStatus,
   Post,
-  Req,
   Res,
-  UseGuards,
 } from '@nestjs/common';
 import { AuthenticationService } from './authentication.service';
 import { ApiTags, ApiOkResponse, ApiCreatedResponse } from '@nestjs/swagger';
@@ -18,7 +16,7 @@ import { UsersService } from 'src/users/users.service';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { UsersEntity } from 'src/users/entities/user.entity';
 import { Response } from 'express';
-import { RefreshJwtGuard } from './guards/jwtrefresh.guard';
+// import { RefreshJwtGuard } from './guards/jwtrefresh.guard';
 
 @Controller('auth')
 @ApiTags('auth')
@@ -56,9 +54,9 @@ export class AuthenticationController {
     return await this.authenticationService.login(dto);
   }
 
-  @UseGuards(RefreshJwtGuard)
-  @Post('refresh')
-  async refreshToken(@Req() req) {
-    return await this.authenticationService.refreshToken(req.user);
-  }
+  // @UseGuards(RefreshJwtGuard)
+  // @Post('refresh')
+  // async refreshToken(@Req() req) {
+  //   return await this.authenticationService.refreshToken(req.user);
+  // }
 }
