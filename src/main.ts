@@ -8,10 +8,10 @@ import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const corsOptions = {
-    origin: 'https://kaphstore.vercel.app/',
-    optionsSuccessStatus: 200, //we use 200 as some legacy browsers (IE11, various SmartTVs) choke on 204
-  };
+  // const corsOptions = {
+  //   origin: 'http://localhost:3000',
+  //   optionsSuccessStatus: 200, //we use 200 as some legacy browsers (IE11, various SmartTVs) choke on 204
+  // };
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
   const config = new DocumentBuilder()
@@ -26,7 +26,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
   const { httpAdapter } = app.get(HttpAdapterHost);
   app.useGlobalFilters(new PrismaClientExceptionFilter(httpAdapter));
-  app.enableCors(corsOptions);
+  app.enableCors();
   app.setGlobalPrefix('api/');
 
   const configService = app.get(ConfigService);
