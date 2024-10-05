@@ -22,7 +22,6 @@ import { OrdersService } from './orders/orders.service';
     ProductsModule,
     UsersModule,
     OrdersModule,
-    // AuthenticationModule,
   ],
   controllers: [
     AppController,

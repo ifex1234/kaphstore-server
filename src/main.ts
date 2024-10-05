@@ -8,10 +8,7 @@ import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  // const corsOptions = {
-  //   origin: 'http://localhost:3000',
-  //   optionsSuccessStatus: 200, //we use 200 as some legacy browsers (IE11, various SmartTVs) choke on 204
-  // };
+
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
   const config = new DocumentBuilder()
